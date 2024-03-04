@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2024-03-01-create_point" author="Grigoriy Zemlyanskiy">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="point"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="point_seq" startValue="1" incrementBy="1" />
+        <createTable tableName="point" remarks="контрольная точка">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="point_seq"/>
+            <column name="name" type="VARCHAR(100)" remarks="Название"/>
+            <column name="ending" type="DATE"  remarks="Дата окончания"/>
+        </createTable>
+        <addPrimaryKey tableName="point" columnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
