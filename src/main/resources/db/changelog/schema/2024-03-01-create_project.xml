@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2024-03-01-create_project" author="Grigoriy Zemlyanskiy">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="project"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="project_seq" startValue="1" incrementBy="1" />
+        <createTable tableName="project" remarks="проект">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="project_seq"/>
+            <column name="name" type="VARCHAR(100)" remarks="Название"/>
+            <column name="number" type="VARCHAR(100)" remarks="Номер"/>
+            <column name="state" type="VARCHAR(100)" remarks="Состояние"/>
+            <column name="average_completion_percentage" type="DOUBLE PRECISION" remarks="Средний процент выполнения"/>
+            <column name="leader" type="VARCHAR(100)" remarks="Руководитель"/>
+        </createTable>
+        <addPrimaryKey tableName="project" columnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
